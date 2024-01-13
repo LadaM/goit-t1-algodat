@@ -9,14 +9,8 @@ def test_palindrome(word: str) -> bool:
     if len(test_word) <= 1:
         return True
 
-    word_deque = deque(maxlen=len(test_word))
-    for char in test_word:
-        word_deque.append(char)
-
-    while word_deque:
-        # ensuring that queue has at least two elements
-        if len(word_deque) <= 1:
-            return True
+    word_deque = deque(test_word)    
+    while len(word_deque) > 1:
         first = word_deque.popleft()
         last = word_deque.pop()
         if first != last:
@@ -41,7 +35,7 @@ if __name__ == "__main__":
     ]
     for word in test_words:
         print(
-            f"'{word}' is"
-            + (" not " if not test_palindrome(word) else "")
-            + " a palindrome"
+            f"'{word}' is "
+            + ("not " if not test_palindrome(word) else "")
+            + "a palindrome"
         )
