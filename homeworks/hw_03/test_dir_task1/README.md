@@ -1,0 +1,1 @@
+This is a test directory containing various types of files to test the functionality of the recursive copying of files by their types.
