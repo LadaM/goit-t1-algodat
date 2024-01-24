@@ -5,8 +5,8 @@ Code from the lectures and homeworks for the Go IT course Basic Algorithms and D
 ```html
 ├── homeworks
 │   ├── hw_02
-│   ├── task_1_application_processing.py
-│   ├── task_2_ palindrome_test.py
+│       ├── task_1_application_processing.py
+│       └── task_2_ palindrome_test.py
 │   └── hw_03
 │       ├── task1_file_copying.py
 │       ├── task2_koch_snowflake_fractal.py
