@@ -48,7 +48,7 @@
 | Timsort           | 0.043476250022649765 |
 
 ## Conclusions
-1. Insertion sort is VERY slow (when I started the run with 1'000'000 numbers it wasn't finished in what seemed like an eternity but more likely was about 30min which is kind of eternity for a computer program unless we're not talking about training neural networks or downloading node packages)
+1. Insertion sort is VERY slow (when I started the run with 1'000'000 numbers it wasn't finished in what seemed like an eternity but more likely was about 30min which is kind of eternity for a computer program unless we're talking about training neural networks, updating Windows or node packages)
 2. Insertion sort is at least 2'000 times slower than any other of the analysed algorithms
 3. => Quadratic complexity is really bad for larger datasets
 4. Mergesort and Timsort have stable performance for both data distributions
