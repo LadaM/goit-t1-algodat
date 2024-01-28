@@ -39,7 +39,7 @@ def main():
     }
     search_algorithm_by_name = {
         "Rabin-Karp": rabin_karp_search,
-        "Knuth-Moore-Pratt": kmp_search,
+        "Knuth-Morris-Pratt": kmp_search,
         "Boyer-Moore": boyer_moore_search,
     }
 
@@ -54,7 +54,7 @@ def main():
                 print(f"\nSearching {text_name} for \n{' '*4}\"{search_string}\"")
                 print_table_divider(55)
                 print(f"| {'Algorithm':<20} | {'Result':<15} | {'Time (ms)':<10} |")
-                print_table_divider(55)
+                print("| " + "-" * 20 + " | " + "-" * 15 + " | " + "-" * 10 + " |")
                 for algorithm_name, function in search_algorithm_by_name.items():
                     search_res, time = measure_search_time(
                         function, text, search_string
