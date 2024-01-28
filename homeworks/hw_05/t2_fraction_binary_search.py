@@ -6,12 +6,12 @@ def binary_fraction_search(arr, key):
         key: The value to be searched for in the list.
     Returns:
         int: The number of iterations it took to find the key.
-        int: The index of the key or the next closest key in the array if found, otherwise -1
+        int: The the key or the next closest key in the array if found, otherwise None
     """
     iterations = 0
 
     if arr is None or key is None or len(arr) < 1 or key > arr[-1]:
-        return 0, -1
+        return 0, None
 
     if key <= arr[0]:
         return iterations, 0
@@ -28,7 +28,7 @@ def binary_fraction_search(arr, key):
             left = mid + 1
         else:
             right = mid
-    return iterations, right
+    return iterations, arr[right]
 
 
 if __name__ == "__main__":
