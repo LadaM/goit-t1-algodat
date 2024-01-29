@@ -23,7 +23,7 @@ def binary_fraction_search(arr, key):
         mid = (left + right) // 2
         iterations += 1
         if arr[mid] == key:
-            return iterations, mid
+            return iterations, arr[mid]
         elif arr[mid] < key:
             left = mid + 1
         else:
