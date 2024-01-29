@@ -86,25 +86,25 @@ def get_short_loc_name(input_string):
         return first_letters
 
 
-def create_graph(data):
+def create_lines_network_graph(lines_data):
     """
     From data choose vertices and edges where vertex is start location or end location and edges is line name
     The weight of the edge is the inverse of the distance between the two locations (end_km-start_km).
-    :param data: data is a dictionary containing the data points stored by line_id
+    :param lines_data: data is a dictionary containing the data points stored by line_id
     """
     graph = nx.Graph()
     location_short_name_by_name = {
         loc_name: get_short_loc_name(loc_name)
-        for data in data.values()
+        for data in lines_data.values()
         for loc_name in [data["start_loc_name"], data["end_loc_name"]]
     }
-    for line_id, line_data in data.items():
-        start_loc = location_short_name_by_name[line_data["start_loc_name"]]
-        end_loc = location_short_name_by_name[line_data["end_loc_name"]]
+    for line_id, line in lines_data.items():
+        start_loc = location_short_name_by_name[line["start_loc_name"]]
+        end_loc = location_short_name_by_name[line["end_loc_name"]]
         if start_loc != end_loc:  # ignore self-loops
             # distance attribute represents the distance between two points, weight is the inverse of the distance
             distance = max(
-                round(line_data["end_km"] - line_data["start_km"], MAX_DECIMAL_PLACES),
+                round(line["end_km"] - line["start_km"], MAX_DECIMAL_PLACES),
                 MIN_DISTANCE,
             )
             graph.add_edge(
@@ -115,6 +115,12 @@ def create_graph(data):
                 line=line_id,
             )
     return graph
+
+
+def get_sbb_route_network_data():
+    path_to_csv = Path.joinpath(Path(__file__).parent, DATA_PATH)
+    lines_data = read_csv(path_to_csv)
+    return lines_data
 
 
 def draw_graph(graph):
@@ -139,12 +145,9 @@ def draw_graph(graph):
 
 
 def main():
-    path_to_csv = Path.joinpath(Path(__file__).parent, DATA_PATH)
-    data = read_csv(path_to_csv)
-
-    graph = create_graph(data)
-    largest_component = max(nx.connected_components(graph), key=len)
-    largest_subgraph = graph.subgraph(largest_component)
+    lines_data = get_sbb_route_network_data()
+    graph = create_lines_network_graph(lines_data)
+    largest_subgraph = get_largest_connected_subgraph(graph)
 
     # Print the analysis
     print("\nThe network analysis:")
@@ -156,6 +159,12 @@ def main():
     plt.figure("Lines and Stops Network", figsize=(12, 7))
     draw_graph(largest_subgraph)
     plt.show()
+
+
+def get_largest_connected_subgraph(graph):
+    largest_component = max(nx.connected_components(graph), key=len)
+    largest_subgraph = graph.subgraph(largest_component)
+    return largest_subgraph
 
 
 if __name__ == "__main__":
