@@ -47,6 +47,10 @@ def print_graph_analysis(graph):
     )
 
 
+def remove_parentheses(text):
+    return re.sub(r"\([^)]*\)", "", text)
+
+
 def read_csv(path):
     data_points = {}
     with open(path, "r") as file:
@@ -56,8 +60,8 @@ def read_csv(path):
         for row in reader:
             data_point = {
                 "line_name": row[1],
-                "start_loc_name": row[2],
-                "end_loc_name": row[3],
+                "start_loc_name": remove_parentheses(row[2]),
+                "end_loc_name": remove_parentheses(row[3]),
                 "start_km": float(row[4]),
                 "end_km": float(row[5]),
             }
@@ -92,11 +96,7 @@ def create_lines_network_graph(lines_data):
     :param lines_data: data is a dictionary containing the data points stored by line_id
     """
     graph = nx.Graph()
-    location_short_name_by_name = {
-        loc_name: get_short_loc_name(loc_name)
-        for data in lines_data.values()
-        for loc_name in [data["start_loc_name"], data["end_loc_name"]]
-    }
+    location_short_name_by_name = get_location_short_name_by_name(lines_data)
     for line_id, line in lines_data.items():
         start_loc = location_short_name_by_name[line["start_loc_name"]]
         end_loc = location_short_name_by_name[line["end_loc_name"]]
@@ -114,6 +114,22 @@ def create_lines_network_graph(lines_data):
                 line=line_id,
             )
     return graph
+
+
+def get_location_short_name_by_name(lines_data):
+    return {
+        loc_name: get_short_loc_name(loc_name)
+        for data in lines_data.values()
+        for loc_name in [data["start_loc_name"], data["end_loc_name"]]
+    }
+
+
+def get_location_name_by_short_name(lines_data):
+    return {
+        get_short_loc_name(loc_name): loc_name
+        for data in lines_data.values()
+        for loc_name in [data["start_loc_name"], data["end_loc_name"]]
+    }
 
 
 def get_sbb_route_network_data():
