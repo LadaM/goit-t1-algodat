@@ -79,11 +79,10 @@ def get_short_loc_name(input_string):
     :param input_string: The input string to be shortened.
     :return: The shortened version of the input string.
     """
-    first_letters = input_string[:3]
     if len(re.split(r"\s|-", input_string)) > 1:
-        return (first_letters + "".join(re.findall("[A-Z]", input_string)[1:]))[:5]
+        return (input_string[:2] + "".join(re.findall("[A-Z]", input_string)[1:]))[:5]
     else:
-        return first_letters
+        return input_string[:3]
 
 
 def create_lines_network_graph(lines_data):
@@ -126,7 +125,7 @@ def get_sbb_route_network_data():
 def draw_graph(graph):
     pos = nx.fruchterman_reingold_layout(
         graph,
-        scale=3,
+        scale=4,
         seed=42,
     )
     nx.draw(
