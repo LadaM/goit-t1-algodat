@@ -1,7 +1,7 @@
 from avl_tree import AVLTree, Node
 
 
-def find_the_largest_element_in_BST(tree):
+def find_largest_element_in_BST(tree):
     """
     Finds the largest element of a binary search tree
     """
@@ -24,5 +24,5 @@ if __name__ == "__main__":
         tree.insert_key(key)
 
     print(
-        "The largest element in the tree is = ", find_the_largest_element_in_BST(tree)
+        "The largest element in the tree is = ", find_largest_element_in_BST(tree)
     )
