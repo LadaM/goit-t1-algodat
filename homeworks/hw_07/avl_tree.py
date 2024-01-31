@@ -1,13 +1,14 @@
+class Node:
+    def __init__(self, key):
+        self.key = key
+        self.height = 1
+        self.left = None
+        self.right = None
+
+
 class AVLTree:
     def __init__(self):
         self.root = None
-
-    class __Node:
-        def __init__(self, key):
-            self.key = key
-            self.height = 1
-            self.left = None
-            self.right = None
 
     def height(self, node):
         if not node:
@@ -63,7 +64,7 @@ class AVLTree:
         """
         # Base Case
         if not root:
-            return self.__Node(key)
+            return Node(key)
 
         if key < root.key:
             root.left = self.insert(root.left, key)
