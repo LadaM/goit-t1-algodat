@@ -13,29 +13,29 @@ def production_optimization():
     model = pulp.LpProblem("Maximize Profit", pulp.LpMaximize)
 
     # define the variables
-    A = pulp.LpVariable('A', lowBound=0, cat='Integer')  # Кількість продукту А
-    B = pulp.LpVariable('B', lowBound=0, upBound=10, cat='Integer')  # Кількість продукту Б
+    A = pulp.LpVariable('A', lowBound=0, cat='Integer')
+    B = pulp.LpVariable('B', lowBound=0, upBound=10, cat='Integer')
 
     # objective function (profit)
     model += 50 * A + 40 * B, "Profit"
 
     # constraints
-    model += 5 * A + 2 * B <= 80  # Обмеження для машини №1
-    model += 3 * A + 2 * B <= 40  # Обмеження для машини №2
+    model += 5 * A + 2 * B <= 80
+    model += 3 * A + 2 * B <= 40
 
     model.solve()
 
-    print("Виробляти продуктів А:", A.varValue)
-    print("Виробляти продуктів Б:", B.varValue)
-
+    print("Optimal quantity of product А:", A.varValue)
+    print("Optimal quantity of product B:", B.varValue)
 
 
 def main():
     min_model = pulp.LpProblem("Minimization Model", pulp.LpMinimize)
     # or
-    max_model = pulp.LpProblem("Maximization Model", pulp.LpMaximize) 
+    max_model = pulp.LpProblem("Maximization Model", pulp.LpMaximize)
 
-    x = pulp.LpVariable('x', lowBound=0, cat='Continuous')   # cat='Continuous' is set by default
+    # cat='Continuous' is set by default
+    x = pulp.LpVariable('x', lowBound=0, cat='Continuous')
     y = pulp.LpVariable('y', 3, 7)        # 3 ≤ y ≤ 7
 
     model = min_model
@@ -46,9 +46,12 @@ def main():
     model += y >= 2, "Constraint2"
 
     model.solve()
-    print(f"Status: {model.status}, {pulp.LpStatus[model.status]}") # to get the status
-    print(f"Optimal value: {model.objective.value()}")  # to get the optimal value of the function
-    print(f"x = {x.value()}, y = {y.value()}")  # to get the optimal values of the variables
+    # to get the status
+    print(f"Status: {model.status}, {pulp.LpStatus[model.status]}")
+    # to get the optimal value of the function
+    print(f"Optimal value: {model.objective.value()}")
+    # to get the optimal values of the variables
+    print(f"x = {x.value()}, y = {y.value()}")
 
 
 if __name__ == "__main__":
