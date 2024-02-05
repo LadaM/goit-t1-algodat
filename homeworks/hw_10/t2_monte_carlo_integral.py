@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.integrate as spi
-import random
 
 
 def f(x):
@@ -92,14 +91,21 @@ def main():
     # Defining the function and integration boundary
     a = 0  # Lower bound
     b = 2  # Upper bound
-    estimated_area = monte_carlo_simulation(f, a, b)
-    print("Estimated area under the curve: ", estimated_area)
+
+    estimated_area_100 = monte_carlo_simulation(f, a, b)
+    print("With 100 experiments, estimated area under the curve: ", estimated_area_100)
+    estimated_area_1000 = monte_carlo_simulation(f, a, b, num_experiments=1000)
+    print("With 1000 experiments, estimated area under the curve: ", estimated_area_1000)
+    
     integral_value = calculate_integral(f, a, b)
     print("Value of the integral: ", integral_value)
 
     # Checking if the estimated area is close to the integral value
-    is_close = round(estimated_area, 2) == round(integral_value, 2)
-    print("Is the estimated area close to the integral value? ", is_close)  
+    is_close_100 = round(estimated_area_100, 4) == round(integral_value, 4)
+    print("Is the estimated area close to the integral value? ", is_close_100) 
+    is_close_1000 = round(estimated_area_1000, 4) == round(integral_value, 4)
+    print("Is the estimated area close to the integral value? ", is_close_1000)  
+
     draw_function(a, b)
 
 
